@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import AppRouter from './components/AppRouter';
+import React, { useContext, useEffect, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBar from 'components/NavBar';
+import { observer } from 'mobx-react-lite';
+import { Context } from 'index';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+
+
+const App = observer(() => {
+
+    const [currentTime, setCurrentTime] = useState(new Date());
+const [isWorking, setIsWorking] = useState(false)
+
+useEffect(() => {
+    console.log(currentTime.getHours())
+    if (currentTime.getHours() < 8 || currentTime.getHours() >= 20) {
+        setIsWorking(false)
+    } else {
+        setIsWorking(true)
+    }
+
+
+}, [])
+
+    
+
+    return (   
+             
+        <BrowserRouter>
+            <NavBar/>
+            <AppRouter/>
+        </BrowserRouter>
+    )
+    
+    });
 
 export default App;
